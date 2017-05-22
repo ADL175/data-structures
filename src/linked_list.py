@@ -1,22 +1,3 @@
-"""
-class Node(object):
-    def __init__(self, value, next_up):
-        self.value = value
-        self.next = next_up
-        pass
-
-class Linked_List(object):
-        def __init__(self):
-            self.head = None
-            pass
-
-        def push(self, val):
-            self.head = Node(val, self.head)
-            pass
-
-"""
-
-
 
 class Node(object):
     def __init__(self, value, next_up):
@@ -51,7 +32,7 @@ class Linked_List(object):
     def size(self):
         return self.length
 
-    def search(val):
+    def search(self, val):
         temp = self.head
         while temp.value is not val:
             temp = temp.next
@@ -59,5 +40,26 @@ class Linked_List(object):
                 return "haha, nothing here"
         return temp
 
-    def remove(node):
-        pass
+    def remove(self, val):
+        if self.head.value is val:
+            self.head = self.head.next
+        current_node = self.head
+        print(current_node.value)
+        while current_node:
+            print(current_node.value)
+            if current_node.next.value is val:
+                print(current_node.value)
+                self.length -= 1
+                current_node.next = current_node.next.next
+            if current_node is None:
+                return "haha, nothing to delete"
+        print(current_node.value)
+        return current_node
+
+
+poop = Linked_List()
+poop.push(3)
+poop.push(5)
+poop.push(4334)
+poop.push(87)
+poop.size()
