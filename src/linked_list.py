@@ -108,7 +108,7 @@ class Linked_List(object):
         return "fuck you guys"
 
     def __str__(self):
-        """Overload the str method of the built-in print to be able to work with it"""
+        """Overload the str method of the built-in print to be able to work with it."""
         return display()
 
 """."""
@@ -124,3 +124,4 @@ new_list.push('tango')
 new_list.push(6)
 new_list.push('foxtrot')
 new_list.display()
+print(new_list)
