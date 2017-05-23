@@ -1,3 +1,6 @@
+"""Test definitions for linked_list."""
+
+
 import pytest
 import linked_list
 
@@ -42,6 +45,7 @@ PARAMS_TABLE_REMOVE = [
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_list(data, result_one, result_two):
+    """Ensure proper assignment."""
     test_list = linked_list.Linked_List(data)
     assert test_list.head.value == result_one
     assert test_list.head.next.next.value == result_two
@@ -49,6 +53,7 @@ def test_list(data, result_one, result_two):
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_push(data, result_one, result_two):
+    """Test the push method."""
     test_list = linked_list.Linked_List()
     for i in data:
         test_list.push(i)
@@ -58,14 +63,15 @@ def test_push(data, result_one, result_two):
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
+    """Test the pop method."""
     test_list = linked_list.Linked_List(data)
     assert test_list.pop().value == result_one
     assert test_list.pop().value == result_two
 
 
-
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
+    """Test if list size is properly incremented."""
     test_list = linked_list.Linked_List(data)
     assert test_list.size() == result
     test_list.push("test_push")
@@ -74,21 +80,23 @@ def test_size(data, result):
     assert test_list.size() == result
 
 
-
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_THERE)
 def test_search_where_it_is_there(data, search_me, result):
+    """Test the search function for cases found."""
     test_list = linked_list.Linked_List(data)
     assert test_list.search(search_me).value == result
 
 
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_NOT_THERE)
 def test_search_where_it_is_not_there(data, search_me, result):
+    """Test the search for case not found."""
     test_list = linked_list.Linked_List(data)
     assert test_list.search(search_me) == result
 
 
 @pytest.mark.parametrize("a,b,c,d,result_head, result_next", PARAMS_TABLE_REMOVE)
 def test_remove(a, b, c, d, result_head, result_next):
+    """Test if remove actually remove pushed values."""
     test_list = linked_list.Linked_List()
     test_list.push(a)
     test_list.push(b)
