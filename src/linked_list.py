@@ -14,6 +14,12 @@ class Linked_List(object):
         for x in optional_values:
             self.push(x)
 
+    def __len__(self):
+        return self.size()
+
+    def __print__(self):
+        return self.display()
+
     def push(self, value):
         self.head = Node(value, self.head)
         self.length += 1
@@ -76,11 +82,11 @@ class Linked_List(object):
         while current_node:
             the_list.append(current_node.value)
             current_node = current_node.next
-        print('('),
+        sys.stdout.write('('),
         for i in range(len(the_list)-1):
             sys.stdout.write('{}, '.format(the_list[i]))
         sys.stdout.write(str(the_list[-1]))
-        print(')')
+        sys.stdout.write(')')
 
 
 new_list = Linked_List()

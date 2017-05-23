@@ -1,5 +1,5 @@
 import pytest
-import dataStructure
+import linked_list
 
 PARAMS_TABLE_LIST = [
     ([1, 2, 3, 4, 5], 5, 3),
@@ -39,16 +39,17 @@ PARAMS_TABLE_REMOVE = [
     (3, 3, 3, 3, 3, 3)
 ]
 
+
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_list(data, result_one, result_two):
-    test_list = dataStructure.Linked_List(data)
+    test_list = linked_list.Linked_List(data)
     assert test_list.head.value == result_one
     assert test_list.head.next.next.value == result_two
 
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_push(data, result_one, result_two):
-    test_list = dataStructure.Linked_List()
+    test_list = linked_list.Linked_List()
     for i in data:
         test_list.push(i)
     assert test_list.head.value == result_one
@@ -57,7 +58,7 @@ def test_push(data, result_one, result_two):
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
-    test_list = dataStructure.Linked_List(data)
+    test_list = linked_list.Linked_List(data)
     assert test_list.pop().value == result_one
     assert test_list.pop().value == result_two
 
@@ -65,7 +66,7 @@ def test_pop(data, result_one, result_two):
 
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
-    test_list = dataStructure.Linked_List(data)
+    test_list = linked_list.Linked_List(data)
     assert test_list.size() == result
     test_list.push("test_push")
     assert test_list.size() == result + 1
@@ -76,19 +77,19 @@ def test_size(data, result):
 
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_THERE)
 def test_search_where_it_is_there(data, search_me, result):
-    test_list = dataStructure.Linked_List(data)
+    test_list = linked_list.Linked_List(data)
     assert test_list.search(search_me).value == result
 
 
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_NOT_THERE)
 def test_search_where_it_is_not_there(data, search_me, result):
-    test_list = dataStructure.Linked_List(data)
+    test_list = linked_list.Linked_List(data)
     assert test_list.search(search_me) == result
 
 
 @pytest.mark.parametrize("a,b,c,d,result_head, result_next", PARAMS_TABLE_REMOVE)
 def test_remove(a, b, c, d, result_head, result_next):
-    test_list = dataStructure.Linked_List()
+    test_list = linked_list.Linked_List()
     test_list.push(a)
     test_list.push(b)
     test_list.push(c)
