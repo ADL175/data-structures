@@ -18,7 +18,9 @@ class Linked_List(object):
         return self.size()
 
     def __print__(self):
+        #new_list.__print__()
         return self.display()
+
 
     def push(self, value):
         self.head = Node(value, self.head)
@@ -87,6 +89,9 @@ class Linked_List(object):
             sys.stdout.write('{}, '.format(the_list[i]))
         sys.stdout.write(str(the_list[-1]))
         sys.stdout.write(')')
+        return "fuck you guys"
+
+"""."""
 
 
 new_list = Linked_List()
