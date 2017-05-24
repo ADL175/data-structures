@@ -10,7 +10,7 @@ setup(
     py_modules=['linked_list', 'stack', 'doubly_linked'],
     package_dir={'': 'src'},
     install_requires=[],
-    extras_require={'test':['pytest','pytest-watch', 'pytest-cov', 'ipython']},
+    extras_require={'test':['pytest','pytest-watch', 'pytest-cov', 'ipython', 'tox']},
     entry_points={
         'console_scripts':[
             "linked_list = linked_list:main",

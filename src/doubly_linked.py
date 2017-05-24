@@ -48,7 +48,7 @@ class Linked_List(object):
         return popped
 
     def shift(self):
-        """Cut one node from the tail, re-assign behind to tail, and return shirted node."""
+        """Cut one node from the tail, re-assign behind to tail, and return shifted node."""
         shifted = self.tail
         self.tail = self.tail.behind
         self.length -= 1
