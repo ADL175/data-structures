@@ -12,7 +12,7 @@ class Node(object):
 
 
 class Linked_List(object):
-        """Define the Link_List class structure"""
+    """Define the Link_List class structure"""
     def __init__(self, optional_values=[]):
         """Initialize a List with an optional list parameter"""
         self.head = None
@@ -109,7 +109,7 @@ class Linked_List(object):
 
     def __str__(self):
         """Overload the str method of the built-in print to be able to work with it."""
-        return display()
+        return self.display()
 
 """."""
 
