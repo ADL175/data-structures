@@ -19,6 +19,13 @@ PARAMS_TABLE_POP = [
     ([False, 2, True, "alpha", [1, 2, 3]], [1, 2, 3], "alpha")
 ]
 
+PARAMS_TABLE_SHIFT = [
+    ([1, 2, 3, 4, 5], 1, 2),
+    ([5, 4, 3, 2, 1], 5, 4),
+    (["whisky", "tango", "foxtrot", "bravo", "bravo", "quebec"], "whisky", "tango"),
+    ([False, 2, True, "alpha", [1, 2, 3]], False, 2)
+]
+
 PARAMS_TABLE_SIZE = [
     ([], 0),
     ([1], 1),
@@ -60,6 +67,14 @@ def test_push(data, result_one, result_two):
     assert test_list.head.value == result_one
     assert test_list.head.next.next.value == result_two
 
+@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
+def test_append(data, result_one, result_two):
+    """Test the append method."""
+    test_list = doubly_linked.Linked_List()
+    for i in data:
+        test_list.append(i)
+    assert test_list.tail.value == result_one
+    assert test_list.tail.behind.behind.value == result_two
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
@@ -68,6 +83,12 @@ def test_pop(data, result_one, result_two):
     assert test_list.pop().value == result_one
     assert test_list.pop().value == result_two
 
+@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_SHIFT)
+def test_shift(data, result_one, result_two):
+    """Test the pop method."""
+    test_list = doubly_linked.Linked_List(data)
+    assert test_list.shift().value == result_one
+    assert test_list.shift().value == result_two
 
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
@@ -100,18 +121,3 @@ def test_remove(data, delete_me, result):
     test_list = doubly_linked.Linked_List(data)
     test_list.remove(delete_me)
     assert test_list.head.next.next.next.value == result
-
-
-
-# @pytest.mark.parametrize("a,b,c,d,result_head, result_next", PARAMS_TABLE_REMOVE)
-# def test_remove(a, b, c, d, result_head, result_next):
-#     """Test if remove actually remove pushed values."""
-    # test_list = doubly_linked.Linked_List()
-    # test_list.push(a)
-    # test_list.push(b)
-    # test_list.push(c)
-    # remove_me = test_list.head
-    # test_list.push(d)
-    # test_list.remove(remove_me)
-    # assert test_list.head.next.value == result_next
-    # assert test_list.head.value == result_head

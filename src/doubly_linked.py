@@ -38,14 +38,16 @@ class Linked_List(object):
         popped = self.head
         self.head = self.head.next
         self.length -= 1
-        self.head.behind = None
+        if self.head:
+            self.head.behind = None
         return popped
 
     def shift(self):
         shifted = self.tail
         self.tail = self.tail.behind
         self.length -= 1
-        self.tail.next = None
+        if self.tail:
+            self.tail.next = None
         return shifted
 
     def size(self):
