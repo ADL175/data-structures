@@ -1,4 +1,6 @@
 """Link list implementation."""
+
+
 import sys
 
 
@@ -12,7 +14,7 @@ class Node(object):
 
 
 class Linked_List(object):
-        """Define the Link_List class structure"""
+    """Define the Link_List class structure"""
     def __init__(self, optional_values=[]):
         """Initialize a List with an optional list parameter"""
         self.head = None
@@ -26,9 +28,7 @@ class Linked_List(object):
 
     def __print__(self):
         """Return the print() functions return value."""
-        #new_list.__print__()
         return self.display()
-
 
     def push(self, value):
         """Push a node onto the head of the list."""
@@ -86,7 +86,7 @@ class Linked_List(object):
             current_node = current_node.next
 
     def display_nick_doesnt_want_because_I_assumed_we_wanted_nodes_pointing_at_each_other_but_actually_didnt(self):
-        """Printss the value list."""
+        """Prints the value list."""
         current_node = self.head
         while current_node.next is not None:
             print('({})-->'.format(current_node.value)),
@@ -105,13 +105,22 @@ class Linked_List(object):
             sys.stdout.write('{}, '.format(the_list[i]))
         sys.stdout.write(str(the_list[-1]))
         sys.stdout.write(')')
-        return "fuck you guys"
+        return ""
 
     def __str__(self):
-        """Overload the str method of the built-in print to be able to work with it."""
-        return display()
+        """Overload the str method to be able to work with it."""
+        return self.display()
 
-"""."""
+    def cyclical(self):
+        temp = self.head
+        temp_list = []
+        while temp:
+            if temp in temp_list:
+                print(temp)
+                return True
+            temp_list.append(temp.next)
+            temp = temp.next
+        return False
 
 
 new_list = Linked_List()
@@ -123,5 +132,10 @@ to_be_removed = new_list.head
 new_list.push('tango')
 new_list.push(6)
 new_list.push('foxtrot')
-new_list.display()
+new_list.push(4)
+print(new_list)
+print(new_list.cyclical())
+new_list.pop()
+print(new_list)
+print(new_list.cyclical())
 print(new_list)

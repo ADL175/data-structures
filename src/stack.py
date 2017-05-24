@@ -1,43 +1,16 @@
-"""Stack implementation using Node objects."""
-
-
-class Node(object):
-    """Create Node structure."""
-
-    def __init__(self, value, next_up):
-        """Initialize with a value."""
-        self.value = value
-        self.next = next_up
+from linked_list import Linked_List
 
 
 class Stack(object):
-    """Define the Stack object."""
-
-    def __init__(self, optional_values=[]):
-        """Initialize with a given list."""
-        self.head = None
-        self.length = 0
-        for x in optional_values:
-            self.push(x)
-
-    def push(self, value):
-        """Assign a value to a node and push it on top of the stack."""
-        self.head = Node(value, self.head)
-        self.length += 1
+    """From code review of Sean B's code"""
+    def __init__(self, data=[]):
+        self._new_linked_list = Linked_List(data)
 
     def pop(self):
-        """Pop a node and return it, modify length by one."""
-        popped = self.head
-        self.head = self.head.next
-        self.length -= 1
-        return popped
+        return self._new_linked_list.pop()
+
+    def push(self, val):
+        return self._new_linked_list.push(val)
 
     def __len__(self):
-        """Overload the str function of len to print the length of Stack."""
-        return self.length
-
-poop = Stack()
-poop.push(4)
-poop.push(345)
-poop.push(332)
-poop.pop()
+        return self._new_linked_list.__len__()

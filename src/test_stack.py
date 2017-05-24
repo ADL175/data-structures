@@ -21,26 +21,29 @@ PARAMS_TABLE_POP = [
 
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
-def test_list(data, result_one, result_two):
+def test_stack(data, result_one, result_two):
     """Test if it's properly being assigned."""
-    test_list = stack.Stack(data)
-    assert test_list.head.value == result_one
-    assert test_list.head.next.next.value == result_two
+    test_stack = stack.Stack(data)
+    assert test_stack._new_linked_list.head.value == result_one
+    assert test_stack._new_linked_list.head.next.next.value == result_two
 
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_push(data, result_one, result_two):
     """Test if the pushed value is the correct one."""
-    test_list = stack.Stack()
+    test_stack = stack.Stack()
     for i in data:
-        test_list.push(i)
-    assert test_list.head.value == result_one
-    assert test_list.head.next.next.value == result_two
+        test_stack.push(i)
+    assert test_stack._new_linked_list.head.value == result_one
+    assert test_stack._new_linked_list.head.next.next.value == result_two
 
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
     """Test if the popped value is the predicted value."""
-    test_list = stack.Stack(data)
-    assert test_list.pop().value == result_one
-    assert test_list.pop().value == result_two
+    test_stack = stack.Stack(data)
+    assert test_stack.pop().value == result_one
+    assert test_stack.pop().value == result_two
+
+
+""" code review """
