@@ -36,7 +36,10 @@ class Stack(object):
         """Overload the str function of len to print the length of Stack."""
         return self.length
 
+
 poop = Stack()
+
+
 poop.push(4)
 poop.push(345)
 poop.push(332)
