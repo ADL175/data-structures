@@ -2,7 +2,7 @@ import sys
 
 
 class Node(object):
-
+"""Creates sub class of Node."""
     def __init__(self, value, next_up=None, behind=None):
         self.value = value
         self.next = next_up
@@ -10,7 +10,7 @@ class Node(object):
 
 
 class Linked_List(object):
-
+"""Creates a doubly linked list."""
     def __init__(self, optional_values=[]):
         self.head = None
         self.tail = None
@@ -19,6 +19,7 @@ class Linked_List(object):
             self.push(x)
 
     def push(self, value):
+    """Adds new Head to head of DLL."""
         self.head = Node(value, self.head)
         if self.length == 0:
             self.tail = self.head
@@ -27,6 +28,7 @@ class Linked_List(object):
             self.head.next.behind = self.head
 
     def append(self, value):
+    """Adds new node to tail of DLL."""
         self.tail = Node(value, None, self.tail)
         if self.length == 0:
             self.head = self.tail
@@ -35,6 +37,7 @@ class Linked_List(object):
             self.tail.behind.next = self.tail
 
     def pop(self):
+    """Removes and returns head node."""
         popped = self.head
         self.head = self.head.next
         self.length -= 1
@@ -43,6 +46,7 @@ class Linked_List(object):
         return popped
 
     def shift(self):
+    """Removes and returns tailnode."""
         shifted = self.tail
         self.tail = self.tail.behind
         self.length -= 1
@@ -51,9 +55,11 @@ class Linked_List(object):
         return shifted
 
     def size(self):
+    """Returns length of DLL."""
         return self.length
 
     def search(self, val):
+    """Searches for input value in DLL."""
         temp = self.head
         while temp.value is not val:
             temp = temp.next
@@ -62,6 +68,7 @@ class Linked_List(object):
         return temp
 
     def remove(self, val):
+    """Removes a specific node from DLL."""
         if self.head.value is val:
             self.head = self.head.next
             self.head.behind = None
