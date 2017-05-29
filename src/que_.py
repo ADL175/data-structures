@@ -11,11 +11,12 @@ class Node(object):
 
 class Queue(object):
     """Creates a Queue from value or list."""
-    def __init__(self):
+    def __init__(self, optional_values=[]):
         self.head = None
         self.tail = None
         self.length = 0
-
+        for x in optional_values:
+            self.enqueue(x)
     def enqueue(self, value):
         """Adds node to end of queue."""
         self.tail = Node(value, self.tail)
@@ -52,16 +53,3 @@ class Queue(object):
     def __len__(self):
         """Returns length of queue."""
         return self.size()
-
-new_queue = Queue()
-
-new_queue.enqueue(1)
-new_queue.enqueue(2)
-new_queue.enqueue(3)
-new_queue.enqueue(4)
-new_queue.enqueue(5)
-new_queue.size()
-# new_queue.size()
-# new_queue.dequeue()
-# new_queue.size()
-# new_queue.peek()
