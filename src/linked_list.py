@@ -11,8 +11,9 @@ class Linked_List(object):
     def __init__(self, optional_values=[]):
         self.head = None
         self.length = 0
-        for x in optional_values:
-            self.push(x)
+        if isinstance(option, (tuple, list)):
+            for x in optional_values:
+                self.push(x)
 
     def __len__(self):
         return self.size()
@@ -25,56 +26,42 @@ class Linked_List(object):
         self.length += 1
 
     def pop(self):
+        if self.length is 0:
+            raise IndexError('List is empty')
         popped = self.head
         self.head = self.head.next
         self.length -= 1
-        return popped
+        return popped.value
 
     def size(self):
         return self.length
 
     def search(self, val):
+        if self.length is 0:
+            return None
         temp = self.head
         while temp.value is not val:
             temp = temp.next
             if temp is None:
-                return "haha, nothing here"
+                return None
         return temp
 
-    def remove_that_nick_does_not_want(self, val):
-        if self.head.value is val:
-            self.head = self.head.next
-            pass
-        current_node = self.head
-        while current_node:
-            if current_node.next.value is val:
-                self.length -= 1
-                current_node.next = current_node.next.next
-                return
-            if current_node is None:
-                return "haha, nothing to delete"
-            current_node = current_node.next
-
     def remove(self, node_to_be_removed):
-        if self.head is node_to_be_removed:
-            self.head = self.head.next
-            pass
-        current_node = self.head
-        while current_node:
-            if current_node.next is node_to_be_removed:
-                self.length -= 1
-                current_node.next = current_node.next.next
-                break
-            if current_node is None:
-                pass
-            current_node = current_node.next
-
-    def display_nick_doesnt_want_because_I_assumed_we_wanted_nodes_pointing_at_each_other_but_actually_didnt(self):
-        current_node = self.head
-        while current_node.next is not None:
-            print('({})-->'.format(current_node.value)),
-            current_node = current_node.next
-        print('({})'.format(current_node.value))
+        if isinstance(node_to_be_removed, Node):
+            if self.head is node_to_be_removed:
+                self.head = self.head.next
+            else:
+                current_node = self.head
+                while current_node:
+                    if current_node.next is node_to_be_removed:
+                        self.length -= 1
+                        current_node.next = current_node.next.next
+                        break
+                    current_node = current_node.next
+                if current_node is None:
+                    raise IndexError("Node not found.")
+        else:
+            return "not a node"
 
     def display(self):
         current_node = self.head
@@ -88,14 +75,11 @@ class Linked_List(object):
         sys.stdout.write(str(the_list[-1]))
         sys.stdout.write(')')
 
-
-new_list = Linked_List()
-new_list.push(1)
-new_list.push(2)
-new_list.push('whisky')
-new_list.push(4)
-to_be_removed = new_list.head
-new_list.push('tango')
-new_list.push(6)
-new_list.push('foxtrot')
-new_list.display()
+if __name__ == '__main__':
+    LL = Linked_List()
+    LL.search(5)
+    LL.push(5)
+    remove_this = LL.head
+    LL.push(4)
+    LL.push(3)
+    print(LL.remove([remove_this]))
