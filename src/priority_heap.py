@@ -66,29 +66,3 @@ class Priority_Heap():
             temp = [current, child_one, child_two]
             temp = sorted(temp, key=lambda k: k['priority'])
         return to_remove
-
-if __name__ == '__main__':
-    new_heap = Binary_Heap()
-    new_heap.push({'value': 'poo',
-                   'priority': 12})
-    new_heap.push({'value': 'shoe',
-                   'priority': 34})
-    new_heap.push({'value': 'zoosdf',
-                   'priority': 5})
-    new_heap.push({'value': 'poaasdlfkjao',
-                   'priority': 7})
-    new_heap.push({'value': 'PLOP',
-                   'priority': 734})
-    new_heap.push({'value': 'SHOPTASD',
-                   'priority': 72})
-    new_heap.push({'value': 'PEEE',
-                   'priority': 1})
-    new_heap.push({'value': 'SHAM',
-                   'priority': 2})
-    print(new_heap.heap)
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
