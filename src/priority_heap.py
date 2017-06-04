@@ -1,16 +1,16 @@
-"""Heapy mcheap."""
+"""Max / PRIORITY Heapy mcheap."""
 
 
-class Binary_Heap():
+class Priority_Heap():
     """A heap."""
     def __init__(self):
         """Initialize a heap."""
         self.heap = []
 
-    def push(self, value):
+    def push(self, item):
         """Add value to heap."""
-        if isinstance(value, int):
-            self.heap.append(value)
+        if isinstance(item['priority'], int):
+            self.heap.append(item)
             current = self.heap[-1]
             if self.heap.index(current) == 0:
                 return
@@ -18,7 +18,7 @@ class Binary_Heap():
                 parent = self.heap[int((self.heap.index(current) - 2) / 2)]
             else:
                 parent = self.heap[int((self.heap.index(current) - 1) / 2)]
-            while current < parent:
+            while current['priority'] > parent['priority']:
                 self.heap[self.heap.index(current)], self.heap[self.heap.index(parent)] = self.heap[self.heap.index(parent)], self.heap[self.heap.index(current)]
                 if self.heap.index(current) == 0:
                     break
@@ -43,35 +43,52 @@ class Binary_Heap():
         try:
             child_one = self.heap[int((self.heap.index(current) * 2) + 1)]
         except IndexError:
-            child_one = current +1
+            child_one = {'priority': current['priority']-1}
+            # current['priority'] - 1
         try:
             child_two = self.heap[int((self.heap.index(current) * 2) + 2)]
         except IndexError:
-            child_two = current + 1
-        temp = sorted([current, child_one, child_two])
-        while temp[0] is not current:
-            self.heap[self.heap.index(temp[0])], self.heap[self.heap.index(current)] = self.heap[self.heap.index(current)], self.heap[self.heap.index(temp[0])]
+            child_two = {'priority': current['priority']-1}
+            # current['priority'] - 1
+        temp = [current, child_one, child_two]
+        temp = sorted(temp, key=lambda k: k['priority'])
+        # print(temp)
+        while temp[-1] is not current:
+            self.heap[self.heap.index(temp[-1])], self.heap[self.heap.index(current)] = self.heap[self.heap.index(current)], self.heap[self.heap.index(temp[-1])]
             try:
                 child_one = self.heap[int((self.heap.index(current) * 2) + 1)]
             except IndexError:
-                child_one = current + 1
+                child_one = {'priority': current['priority']-1}
             try:
                 child_two = self.heap[int((self.heap.index(current) * 2) + 2)]
             except IndexError:
-                child_two = current + 1
-            temp = sorted([current, child_one, child_two])
+                child_two = {'priority': current['priority']-1}
+            temp = [current, child_one, child_two]
+            temp = sorted(temp, key=lambda k: k['priority'])
         return to_remove
 
 if __name__ == '__main__':
     new_heap = Binary_Heap()
-    new_heap.push(500000000)
-    new_heap.push(4)
-    new_heap.push(False)
-    new_heap.push(1)
-    new_heap.push(5)
+    new_heap.push({'value': 'poo',
+                   'priority': 12})
+    new_heap.push({'value': 'shoe',
+                   'priority': 34})
+    new_heap.push({'value': 'zoosdf',
+                   'priority': 5})
+    new_heap.push({'value': 'poaasdlfkjao',
+                   'priority': 7})
+    new_heap.push({'value': 'PLOP',
+                   'priority': 734})
+    new_heap.push({'value': 'SHOPTASD',
+                   'priority': 72})
+    new_heap.push({'value': 'PEEE',
+                   'priority': 1})
+    new_heap.push({'value': 'SHAM',
+                   'priority': 2})
     print(new_heap.heap)
-    new_heap.pop()
-    new_heap.pop()
-    new_heap.pop()
-    new_heap.pop()
-    new_heap.pop()
+    # print(new_heap.pop())
+    # print(new_heap.pop())
+    # print(new_heap.pop())
+    # print(new_heap.pop())
+    # print(new_heap.pop())
+    # print(new_heap.pop())
