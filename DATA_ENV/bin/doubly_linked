@@ -1,0 +1,12 @@
+#!/Users/davidlim/Desktop/Project/401_python/wk2d1/linked_list/data-structures/DATA_ENV/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'Linked-List-and-Stack','console_scripts','doubly_linked'
+__requires__ = 'Linked-List-and-Stack'
+import re
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(
+        load_entry_point('Linked-List-and-Stack', 'console_scripts', 'doubly_linked')()
+    )
