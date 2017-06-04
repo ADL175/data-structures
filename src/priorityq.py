@@ -23,7 +23,7 @@ class Priority_Q():
 
     def peek(self):
         """Returns value of highest priority item."""
-        return self.heap[0]
+        return self.heap.heap[0]
 
 
 if __name__ == '__main__':
@@ -42,9 +42,3 @@ if __name__ == '__main__':
     print(new_PQ.pop())
     print(new_PQ.pop())
     print(new_PQ.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())
-    # print(new_heap.pop())

@@ -1,88 +1,56 @@
-"""Test definitions for doubly que_."""
+"""Test definitions for PQ."""
 
 import pytest
-import que_
+import priorityq
 
-PARAMS_TABLE_LIST = [
-    ([1, 2, 3, 4, 5], 1, 5),
-    ([5, 4, 3, 2, 1], 5, 1),
-    (["whisky", "tango", "foxtrot", "bravo", "bravo", "quebec"], "whisky", "quebec"),
-    ([False, 2, True, "alpha", [1, 2, 3]], False, [1, 2, 3])
+PARAMS_TABLE_INSERT = [
+    ([[1, 2], [3, 4], [5, 6]], 5, 3),
+    ([["potato", 21], ["shoe", 45], ["poo", 66]], "poo", "shoe"),
+    ([["poop", 2], ["3", "string"], ["tree", 69]], "tree", "poop")
 ]
 
-
 PARAMS_TABLE_POP = [
-    ([1, 2, 3, 4, 5], 1, 2),
-    ([5, 4, 3, 2, 1], 5, 4),
-    (["whisky", "tango", "foxtrot", "bravo", "bravo", "quebec"], "whisky", "tango"),
-    ([False, 2, True, "alpha", [1, 2, 3]], False, 2)
+    ([[1, 2], [3, 4], [5, 6]], [5, 3, 1]),
+    ([["potato", 21], ["shoe", 45], ["poo", 66]], ["poo", "shoe", "potato"]),
+    ([["poop", 2], ["3", "string"], ["tree", 69]], ["tree", "poop", "3"])
 ]
 
 PARAMS_TABLE_PEEK = [
-    ([1, 2, 3, 4, 5], 1),
-    ([5, 4, 3, 2, 1], 5),
-    (["whisky", "tango", "foxtrot", "bravo", "bravo", "quebec"], "whisky"),
-    ([False, 2, True, "alpha", [1, 2, 3]], False)
-]
-
-PARAMS_TABLE_SIZE = [
-    ([], 0),
-    ([1], 1),
-    ([1, 2], 2),
-    ([1, 2, 3], 3)
+    ([[1, 2], [3, 4], [5, 6]], {"value": 5,
+                                "priority": 6}),
+    ([["potato", 21], ["shoe", 45], ["poo", 66]], {"value": "poo",
+                                                   "priority": 66}),
+    ([["poop", 2], ["3", "string"], ["tree", 69]], {"value": "tree",
+                                                    "priority": 69})
 ]
 
 
-@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
-def test_list(data, result_one, result_two):
-    """Ensure proper assignment."""
-    test_list = que_.Queue(data)
-    assert test_list.head.value == result_one
-    assert test_list.tail.value == result_two
-
-
-@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
-def test_enqueue(data, result_one, result_two):
-    """Test the enqueue method."""
-    test_list = que_.Queue()
+@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_INSERT)
+def test_insert(data, result_one, result_two):
+    """Test the insert method."""
+    new_PQ = priorityq.Priority_Q()
     for i in data:
-        test_list.enqueue(i)
-    assert test_list.head.value == result_one
-    assert test_list.tail.value == result_two
+        new_PQ.insert(i[0], i[1])
+    assert new_PQ.heap.heap[0]['value'] == result_one
+    assert new_PQ.heap.heap[-1]['value'] == result_two
 
 
-@pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
-def test_dequeue(data, result_one, result_two):
-    """Test the dequeue method."""
-    test_list = que_.Queue(data)
-    assert test_list.dequeue().value == result_one
-    assert test_list.dequeue().value == result_two
+@pytest.mark.parametrize("data, result_one", PARAMS_TABLE_POP)
+def test_pop(data, result_one):
+    """Test the pop method."""
+    new_list = []
+    new_PQ = priorityq.Priority_Q()
+    for i in data:
+        new_PQ.insert(i[0], i[1])
+    for i in range(3):
+        new_list.append(new_PQ.pop())
+    assert new_list == result_one
 
 
 @pytest.mark.parametrize("data, result_one", PARAMS_TABLE_PEEK)
 def test_peek(data, result_one):
     """Test the peek method."""
-    test_list = que_.Queue(data)
-    assert test_list.peek() == result_one
-
-
-@pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
-def test_size(data, result):
-    """Test if list size is properly incremented."""
-    test_list = que_.Queue(data)
-    assert test_list.size() == result
-    test_list.enqueue("test_push")
-    assert test_list.size() == result + 1
-    test_list.dequeue()
-    assert test_list.size() == result
-
-
-@pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
-def test_len(data, result):
-    """Test if list len is properly incremented."""
-    test_list = que_.Queue(data)
-    assert test_list.__len__() == result
-    test_list.enqueue("test_push")
-    assert test_list.__len__() == result + 1
-    test_list.dequeue()
-    assert test_list.__len__() == result
+    new_PQ = priorityq.Priority_Q()
+    for i in data:
+        new_PQ.insert(i[0], i[1])
+    assert new_PQ.peek() == result_one
