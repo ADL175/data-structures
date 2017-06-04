@@ -73,8 +73,6 @@ class Deque(object):
             self.is_empty = True
         return head
 
-    # def clear():
-
     def peek(self):
         """Return value of head."""
         if self.head is None:
