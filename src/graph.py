@@ -75,7 +75,7 @@ class Graph(object):
             self.graph_dict[val2]
             if val2 in self.graph_dict[val1]:
                 return True
-            else: 
+            else:
                 return False
         except KeyError:
             raise KeyError("Value given not in graph.")
