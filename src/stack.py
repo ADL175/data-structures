@@ -27,20 +27,16 @@ class Stack(object):
 
     def pop(self):
         """Pop a node and return it, modify length by one."""
-        popped = self.head
-        self.head = self.head.next
-        self.length -= 1
-        return popped
+        try:
+            popped = self.head
+            self.head = self.head.next
+            self.length -= 1
+            return popped
+        except AttributeError:
+            return None
 
     def __len__(self):
         """Overload the str function of len to print the length of Stack."""
         return self.length
 
 
-poop = Stack()
-
-
-poop.push(4)
-poop.push(345)
-poop.push(332)
-poop.pop()

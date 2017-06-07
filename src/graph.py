@@ -79,6 +79,38 @@ class Graph(object):
                 return False
         except KeyError:
             raise KeyError("Value given not in graph.")
+    def depth(self, val):
+        from stack import Stack
+        seen = []
+        next_up = Stack()
+        try:
+            while True:
+                if val not in seen:
+                    seen.append(val)
+                    for i in self.graph_dict[val]:
+                        next_up.push(i)
+                if len(next_up) == 0:
+                    break
+                val = next_up.pop().value
+            return seen
+        except KeyError:
+            raise KeyError('Given value does not exist.')
+    def breadth(self, val):
+        from que_ import Queue
+        seen = []
+        next_up = Queue()
+        try:
+            while True:
+                if val not in seen:
+                    seen.append(val)
+                    for i in self.graph_dict[val]:
+                        next_up.enqueue(i)
+                if next_up.size() == 0:
+                    break
+                val = next_up.dequeue().value
+            return seen
+        except KeyError:
+            raise KeyError('Given value does not exist.')
 
 
 
@@ -87,24 +119,53 @@ class Graph(object):
 
 
 if __name__ == '__main__':
+    # graphy_mcgraphface = Graph()
+    # graphy_mcgraphface.add_node("a node")
+    # graphy_mcgraphface.add_node(5)
+    # graphy_mcgraphface.add_node("sunshine and rainbows")
+    # graphy_mcgraphface.add_edge("sunshine and rainbows", 5)
+    # graphy_mcgraphface.add_node(6)
+    # graphy_mcgraphface.add_node("Nodey mcnodeface")
+    # graphy_mcgraphface.add_node("daisies")
+    # graphy_mcgraphface.add_node('the dark abyss')
+    # graphy_mcgraphface.add_node(1)
+    # graphy_mcgraphface.add_edge(5, 6)
+    # graphy_mcgraphface.add_edge(5, 7)
+    # graphy_mcgraphface.add_edge(1, "sunshine and rainbows")
+    # graphy_mcgraphface.add_edge("Nodey mcnodeface", 5)
+    # graphy_mcgraphface.add_edge("Nodey mcnodeface", 66)
+    # graphy_mcgraphface.add_edge("sunshine and rainbows", "the dark abyss")
+    # graphy_mcgraphface.add_edge("the dark abyss", 7)
+    # graphy_mcgraphface.add_edge(7, "Nodey mcnodeface")
+    # graphy_mcgraphface.add_edge(2, 6)
+    # graphy_mcgraphface.add_edge("the dark abyss", 2)
+    # graphy_mcgraphface.add_edge(6, "a node")
+    # graphy_mcgraphface.add_edge("a node", "hello")
+    # graphy_mcgraphface.add_edge("Horse", 7)
+    # graphy_mcgraphface.add_edge("Nodey mcnodeface", 1)
+    # graphy_mcgraphface.add_edge("hello", "Horse")
+    # # print(graphy_mcgraphface.graph_dict)
+    # print(graphy_mcgraphface.edges())
+    # print('---------------------')
+    # print('depth: ', graphy_mcgraphface.depth(5))
+    # print('breadth: ', graphy_mcgraphface.breadth(5))
     graphy_mcgraphface = Graph()
-    graphy_mcgraphface.add_node(5)
-    graphy_mcgraphface.add_node(5)
-    graphy_mcgraphface.add_node("sunshine and rainbows")
-    graphy_mcgraphface.add_edge("sunshine and rainbows", 5)
-    graphy_mcgraphface.add_node(6)
-    graphy_mcgraphface.add_node(3)
-    graphy_mcgraphface.add_node("daisies")
-    graphy_mcgraphface.add_node('the dark abyss')
-    graphy_mcgraphface.add_node(1)
-    graphy_mcgraphface.add_edge(5, 6)
-    graphy_mcgraphface.add_edge(5, 7)
-    graphy_mcgraphface.add_edge(3, 5)
-    graphy_mcgraphface.add_edge("hello", "Horse")
-    print(graphy_mcgraphface.graph_dict)
+    graphy_mcgraphface.add_edge(1, 2)
+    graphy_mcgraphface.add_edge(1, 3)
+    graphy_mcgraphface.add_edge(2, 4)
+    graphy_mcgraphface.add_edge(2, 5)
+    graphy_mcgraphface.add_edge(3, 6)
+    graphy_mcgraphface.add_edge(3, 7)
+    graphy_mcgraphface.add_edge(4, 8)
+    graphy_mcgraphface.add_edge(4, 9)
+    graphy_mcgraphface.add_edge(5, 10)
+    graphy_mcgraphface.add_edge(5, 11)
+    graphy_mcgraphface.add_edge(6, 12)
+    graphy_mcgraphface.add_edge(6, 13)
+    graphy_mcgraphface.add_edge(7, 14)
+    graphy_mcgraphface.add_edge(7, 15)
+    # print(graphy_mcgraphface.graph_dict)
     print(graphy_mcgraphface.edges())
-    print('------------------------------')
-    print(graphy_mcgraphface.graph_dict)
-    print(graphy_mcgraphface.edges())
-
-    print(graphy_mcgraphface.neighbors(5))
+    print('---------------------')
+    print('depth: ', graphy_mcgraphface.depth(1))
+    print('breadth: ', graphy_mcgraphface.breadth(1))
