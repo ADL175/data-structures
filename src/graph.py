@@ -87,7 +87,7 @@ class Graph(object):
             while True:
                 if val not in seen:
                     seen.append(val)
-                    for i in self.graph_dict[val]:
+                    for i in self.graph_dict[val][::-1]:
                         next_up.push(i)
                 if len(next_up) == 0:
                     break
