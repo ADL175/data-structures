@@ -116,9 +116,7 @@ class Graph(object):
             return seen
         except KeyError:
             raise KeyError('Given value does not exist.')
-    def path(self, val1, val2):
-        unvisited_set = self.breadth(val1)
-        print(unvisited_set)
+
 
 
 
