@@ -116,18 +116,33 @@ class Graph(object):
             return seen
         except KeyError:
             raise KeyError('Given value does not exist.')
-
-
-
-
-
+    def path(self, val1):
+        from priorityq import Priority_Q
+        the_list = self.breadth(val1)
+        the_queue = Priority_Q()
+        to_return = []
+        for i in the_list:
+            if i == val1:
+                the_queue.insert(i, self.graph_dict[i], 0)
+            else:
+                the_queue.insert(i, self.graph_dict[i])
+        while len(the_queue.heap.heap) > 0:
+            current = the_queue.pop()
+            # print(current)
+            for neighbor in current['neighbors']:
+                alt = current['dist'] + neighbor[1]
+                # print(current['dist'])
+                # print(neighbor[1])
+                the_queue.decrease_priority(neighbor[0], alt, current['value'])
+            to_return.append(current)
+        return to_return
 
 if __name__ == '__main__':
     graphy_mcgraphface = Graph()
-    for i in range(100):
+    for i in range(10):
         graphy_mcgraphface.add_edge(i, i*2+1, i*2)
         graphy_mcgraphface.add_edge(i, i*2+2, i*3)
-    graphy_mcgraphface.path(0, 55)
+    print(graphy_mcgraphface.path(0))
     # graphy_mcgraphface.add_node("a node")
     # graphy_mcgraphface.add_node(5)
     # graphy_mcgraphface.add_node("sunshine and rainbows")
