@@ -6,7 +6,6 @@ class Graph(object):
         """Make an empty dictionary."""
         self.graph_dict = {}
 
-
     def add_node(self, value):
         """Check if node of given value exists in dictionary.
         If not, add it with an empty list."""
@@ -47,6 +46,7 @@ class Graph(object):
                         values.remove(i)
         except KeyError:
             raise KeyError("No such node exists.")
+
     def del_edge(self, val1, val2):
         """Deletes an edge from graph."""
         try:
@@ -57,6 +57,7 @@ class Graph(object):
             raise ValueError("No such edge exists.")
         except KeyError:
             raise KeyError("No such node exists.")
+
     def has_node(self, val):
         """Checks if graph has a given node in it."""
         try:
@@ -64,6 +65,7 @@ class Graph(object):
             return True
         except KeyError:
             return False
+
     def neighbors(self, val):
         """Return all nodes connected to given node."""
         try:
@@ -73,6 +75,7 @@ class Graph(object):
             return to_return
         except KeyError:
             raise KeyError("No such node exists.")
+
     def adjacent(self, val1, val2):
         """Return True if edge exists, else return false."""
         try:
@@ -80,10 +83,11 @@ class Graph(object):
             for node in self.graph_dict[val1]:
                 if node[0] == val2:
                     return True
-            else: 
+            else:
                 return False
         except KeyError:
             raise KeyError("Value given not in graph.")
+
     def depth(self, val):
         from stack import Stack
         seen = []
@@ -100,6 +104,7 @@ class Graph(object):
             return seen
         except KeyError:
             raise KeyError('Given value does not exist.')
+
     def breadth(self, val):
         from que_ import Queue
         seen = []
@@ -116,7 +121,8 @@ class Graph(object):
             return seen
         except KeyError:
             raise KeyError('Given value does not exist.')
-    def path(self, val1):
+
+    def dijkstra(self, val1):
         from priorityq import Priority_Q
         the_list = self.breadth(val1)
         the_queue = Priority_Q()
@@ -136,10 +142,30 @@ class Graph(object):
             to_return.append(current)
         return to_return
 
+    def bellman_ford(self, vertices, list_edges, vertex_source):
+        print(list_edges)
+        distance = {}
+        predecessor = {}
+        for vertex_v in vertices:
+            # print(vertex_v)
+            distance[vertex_v] = float('inf')
+            predecessor[vertex_v] = None
+        distance[vertex_source] = 0
+        for i in range(len(vertices)):
+            for ji in list_edges:
+                if distance[ji[0]] + ji[2] < distance[ji[1]]:
+                    distance[ji[1]] = distance[ji[0]] + ji[2]
+                    predecessor[ji[1]] = ji[0]
+        for i in list_edges:
+            if distance[i[0]] + i[2] < distance[i[1]]:
+                raise ValueError('Graph contains a negative-weight cycle')
+        return distance, predecessor
+
 if __name__ == '__main__':
     graphy_mcgraphface = Graph()
     graphy_mcgraphface.add_edge('A', 'C', 1)
-    graphy_mcgraphface.add_edge('A', 'B', 4)
+    graphy_mcgraphface.add_edge('A', 'B', -4)
+    graphy_mcgraphface.add_edge('B', 'A', -5)
     graphy_mcgraphface.add_edge('A', 'D', 6)
     graphy_mcgraphface.add_edge('C', 'E', 1)
     graphy_mcgraphface.add_edge('E', 'C', 1)
@@ -147,7 +173,12 @@ if __name__ == '__main__':
     graphy_mcgraphface.add_edge('B', 'D', 1)
     graphy_mcgraphface.add_edge('B', 'F', 1)
     graphy_mcgraphface.add_edge('F', 'D', 10)
-    print(graphy_mcgraphface.path('A'))
+    # print(graphy_mcgraphface.edges())
+
+    print(graphy_mcgraphface.bellman_ford(graphy_mcgraphface.breadth('A'), graphy_mcgraphface.edges(), 'A'))
+
+
+    # print(graphy_mcgraphface.path('A'))
     # print(graphy_mcgraphface.graph_dict)
     # print(graphy_mcgraphface.edges())
     # print('---------------------')
