@@ -125,6 +125,48 @@ class BinarySearchTree(object):
         for value in return_list:
             yield value
 
+    def pre_order(self, node=None):
+        """Depth. Return starts at root and goes to left-most node."""
+        if not node:
+            node = self._root
+            if not node:
+                yield None
+        yield node.value
+        if node.left:
+            for each_value in self.pre_order(node.left):
+                yield each_value
+        if node.right:
+            for each_value in self.pre_order(node.right):
+                yield each_value
+
+    def in_order(self, node=None):
+        """Depth. Return starts from left-most child to right of tree."""
+        if not node:
+            node = self._root
+            if not node:
+                yield None
+        if node.left:
+            for each_value in self.in_order(node.left):
+                yield each_value
+        yield node.value
+        if node.right:
+            for each_value in self.in_order(node.right):
+                yield each_value
+
+    def post_order(self, node=None):
+        """Depth. Returns deepest left-most children, then parents, then right."""
+        if not node:
+            node = self._root
+            if not node:
+                yield None
+        if node.left:
+            for each_value in self.post_order(node.left):
+                yield each_value
+        if node.right:
+            for each_value in self.post_order(node.right):
+                yield each_value
+        yield node.value
+
 poo = BinarySearchTree()
 poo.insert(34)
 poo.insert(44)
