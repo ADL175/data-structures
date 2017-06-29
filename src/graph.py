@@ -6,6 +6,7 @@ class Graph(object):
         """Make an empty dictionary."""
         self.graph_dict = {}
 
+
     def add_node(self, value):
         """Check if node of given value exists in dictionary.
         If not, add it with an empty list."""
@@ -13,6 +14,7 @@ class Graph(object):
             self.graph_dict[value]
         except KeyError:
             self.graph_dict[value] = []
+
 
     def add_edge(self, val1, val2, weight=0):
         """Ensure that nodes of val1 and val2 exist (creating them if they don't.
@@ -173,9 +175,10 @@ if __name__ == '__main__':
     graphy_mcgraphface.add_edge('B', 'D', 1)
     graphy_mcgraphface.add_edge('B', 'F', 1)
     graphy_mcgraphface.add_edge('F', 'D', 10)
-    # print(graphy_mcgraphface.edges())
+    print(graphy_mcgraphface.del_node('F'))
+    print(graphy_mcgraphface.nodes())
 
-    print(graphy_mcgraphface.bellman_ford(graphy_mcgraphface.breadth('A'), graphy_mcgraphface.edges(), 'A'))
+    # print(graphy_mcgraphface.bellman_ford(graphy_mcgraphface.breadth('A'), graphy_mcgraphface.edges(), 'A'))
 
 
     # print(graphy_mcgraphface.path('A'))
