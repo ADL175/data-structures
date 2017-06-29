@@ -32,6 +32,12 @@ PARAMS_TABLE_SIZE = [
     ([1, 2, 3], 3)
 ]
 
+PARAMS_TABLE_ITERABLES = [
+    ([1,2,3], 3),
+    ((1,2,3), 3),
+    ({1:1, 2:2, 3:3}, 0)
+]
+
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_list(data, result_one, result_two):
@@ -39,6 +45,14 @@ def test_list(data, result_one, result_two):
     test_list = que_.Queue(data)
     assert test_list.head.value == result_one
     assert test_list.tail.value == result_two
+
+
+@pytest.mark.parametrize("data, result_one", PARAMS_TABLE_ITERABLES)
+def test_list_iterables(data, result_one):
+    """Ensure enque only takes list or tuples."""
+    test_list = que_.Queue(data)
+    assert len(test_list) == result_one
+
 
 
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
@@ -55,8 +69,14 @@ def test_enqueue(data, result_one, result_two):
 def test_dequeue(data, result_one, result_two):
     """Test the dequeue method."""
     test_list = que_.Queue(data)
-    assert test_list.dequeue().value == result_one
-    assert test_list.dequeue().value == result_two
+    assert test_list.dequeue() == result_one
+    assert test_list.dequeue() == result_two
+
+def test_dequeue_empty():
+    """Test to ensure dequeue function returns an index error when the list is empty."""
+    test_list = que_.Queue()
+    with pytest.raises(IndexError):
+        test_list.dequeue()
 
 
 @pytest.mark.parametrize("data, result_one", PARAMS_TABLE_PEEK)
