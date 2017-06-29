@@ -1,42 +1,54 @@
-import sys
+"""A basic linked list data structure."""
 
 
-class Node(object):
+class Node(object):  #pragma no cover
+    """A node for the list. Has a value, and points to another node."""
+
     def __init__(self, value, next_up):
+        """Node set up."""
         self.value = value
         self.next = next_up
 
 
 class Linked_List(object):
-    def __init__(self, optional_values=[]):
+    """Contain methods for working with nodes pointing to each other."""
+
+    def __init__(self, optional_values=[]):  #pragma no cover
+        """List set up."""
         self.head = None
         self.length = 0
-        if isinstance(option, (tuple, list)):
+        if isinstance(optional_values, (tuple, list)):
             for x in optional_values:
                 self.push(x)
 
     def __len__(self):
+        """Return Length of list."""
         return self.size()
 
-    def __print__(self):
+    def __print__(self):  #pragma no cover
+        """Print list."""
         return self.display()
 
     def push(self, value):
+        """Add node with value to head of list."""
         self.head = Node(value, self.head)
         self.length += 1
 
     def pop(self):
+        """Remove node from head of list."""
         if self.length is 0:
-            raise IndexError('List is empty')
+            raise IndexError('List is empty.')
         popped = self.head
         self.head = self.head.next
         self.length -= 1
         return popped.value
 
     def size(self):
+        """Return Length of list."""
         return self.length
 
     def search(self, val):
+        """Return node with given value, else return none."""
         if self.length is 0:
             return None
         temp = self.head
@@ -47,6 +59,7 @@ class Linked_List(object):
         return temp
 
     def remove(self, node_to_be_removed):
+        """Remove given node from list."""
         if isinstance(node_to_be_removed, Node):
             if self.head is node_to_be_removed:
                 self.head = self.head.next
@@ -61,25 +74,19 @@ class Linked_List(object):
                 if current_node is None:
                     raise IndexError("Node not found.")
         else:
-            return "not a node"
+            raise TypeError("Not a Node.")
 
     def display(self):
+        """Return tuple like string of list."""
         current_node = self.head
         the_list = []
         while current_node:
             the_list.append(current_node.value)
             current_node = current_node.next
-        sys.stdout.write('('),
-        for i in range(len(the_list)-1):
-            sys.stdout.write('{}, '.format(the_list[i]))
-        sys.stdout.write(str(the_list[-1]))
-        sys.stdout.write(')')
-
-if __name__ == '__main__':
-    LL = Linked_List()
-    LL.search(5)
-    LL.push(5)
-    remove_this = LL.head
-    LL.push(4)
-    LL.push(3)
-    print(LL.remove([remove_this]))
+        to_return = '('
+        for i in range(len(the_list)):
+            to_return += '{}, '.format(the_list[i])
+        if len(to_return) > 1:
+            to_return = to_return[:-2]
+        to_return += ')'
+        return to_return
