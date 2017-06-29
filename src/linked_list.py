@@ -1,3 +1,4 @@
+
 """A basic linked list data structure."""
 
 
@@ -29,6 +30,7 @@ class Linked_List(object):
         """Print list."""
         return self.display()
 
+
     def push(self, value):
         """Add node with value to head of list."""
         self.head = Node(value, self.head)
@@ -57,6 +59,7 @@ class Linked_List(object):
             if temp is None:
                 return None
         return temp
+
 
     def remove(self, node_to_be_removed):
         """Remove given node from list."""

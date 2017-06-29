@@ -79,7 +79,6 @@ def test_pop_empty():
     with pytest.raises(IndexError):
         test_list.pop()
 
-
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
     """Test to ensure size function works properly."""
@@ -92,7 +91,6 @@ def test_size(data, result):
     test_list.pop()
     assert test_list.size() == result
     assert len(test_list) == result
-
 
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_THERE)
 def test_search_where_it_is_there(data, search_me, result):

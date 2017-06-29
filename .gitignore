@@ -100,3 +100,4 @@ LINKED_LIST_ENV/
 
 # mypy
 .mypy_cache/
+*ENV
