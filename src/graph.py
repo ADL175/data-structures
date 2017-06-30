@@ -1,23 +1,22 @@
-"""Creates a Graph data structure"""
+"""Creates a Graph data structure, featuring graph traversal and two shortest path algorithms."""
 
 
 class Graph(object):
-    """Define the Link_List class structure"""
+    """Define the Graph class structure."""
+
     def __init__(self):
         """Make an empty dictionary."""
         self.graph_dict = {}
 
     def add_node(self, value):
-        """Check if node of given value exists in dictionary.
-        If not, add it with an empty list."""
+        """Check if node of given value exists in dictionary.If not, add it with an empty list."""
         try:
             self.graph_dict[value]
         except KeyError:
             self.graph_dict[value] = []
 
     def add_edge(self, val1, val2, weight=0):
-        """Ensure that nodes of val1 and val2 exist (creating them if they don't.
-        Then make an edge connecting val1 to val2."""
+        """Ensure that nodes of val1 and val2 exist (creating them if they don't.Then make an edge connecting val1 to val2."""
         if [val1, val2, weight] not in self.edges():
             self.add_node(val1)
             self.add_node(val2)
@@ -38,7 +37,7 @@ class Graph(object):
         return to_return
 
     def del_node(self, val):
-        """Deletes a node from the graph, and from all edge pointers."""
+        """Delete a node from the graph, and from all edge pointers."""
         try:
             del self.graph_dict[val]
             for keys, values in self.graph_dict.items():
@@ -50,21 +49,17 @@ class Graph(object):
             raise KeyError("No such node exists.")
 
     def del_edge(self, val1, val2):
-        """Deletes an edge from graph."""
+        """Delete an edge from graph."""
         try:
             for node in self.graph_dict[val1]:
                 if node[0] == val2:
                     self.graph_dict[val1].remove(node)
-        except ValueError:
-
-            raise ValueError("No such edge exists.")
-
         except KeyError:
 
             raise KeyError("No such node exists.")
 
     def has_node(self, val):
-        """Checks if graph has a given node in it."""
+        """Check if graph has a given node in it."""
         try:
             self.graph_dict[val]
             return True
@@ -91,6 +86,7 @@ class Graph(object):
             raise KeyError("Value given not in graph.")
 
     def depth_first_traversal(self, val):
+        """Return a list of all nodes connected to given start pointbased on a depth first algorithm."""
         from stack import Stack
         seen = []
         next_up = Stack()
@@ -109,6 +105,7 @@ class Graph(object):
             raise KeyError('Given value does not exist.')
 
     def breadth_first_traversal(self, val):
+        """Return a list of all nodes connected to given start pointbased on a breadth first algorithm."""
         from que_ import Queue
         seen = []
         next_up = Queue()
@@ -127,8 +124,14 @@ class Graph(object):
             raise KeyError('Given value does not exist.')
 
     def dijkstra(self, val1, val2):
+        """An implementation of Dijkstra's shortest path algorithm.
+
+        Makes use of a priority queue to find the shortest path between two nodes.
+        Returns the distance of the node from the original, as well as the most
+        optimal path.
+        """
         from priorityq import Priority_Q
-        the_list = self.breadth(val1)
+        the_list = self.breadth_first_traversal(val1)
         the_queue = Priority_Q()
         to_return = {}
         for i in the_list:
@@ -152,13 +155,17 @@ class Graph(object):
                 return [to_return[val2]['dist'], path[::-1]]
 
     def bellman_ford(self, vertex_source, target):
-        # print(list_edges)
-        vertices = self.breadth(vertex_source)
+        """An implementation the Bellman Ford shortest path algorithm.
+
+        Makes use of a priority queue to find the shortest path between two nodes.
+        Returns the distance of the node from the original, as well as the most
+        optimal path.
+        """
+        vertices = self.breadth_first_traversal(vertex_source)
         list_edges = self.edges()
         distance = {}
         predecessor = {}
         for vertex_v in vertices:
-            # print(vertex_v)
             distance[vertex_v] = float('inf')
             predecessor[vertex_v] = None
         distance[vertex_source] = 0
@@ -170,7 +177,6 @@ class Graph(object):
         for i in list_edges:
             if distance[i[0]] + i[2] < distance[i[1]]:
                 raise ValueError('Graph contains a negative-weight cycle')
-
         path = []
         curr = target
         while True:
@@ -179,93 +185,3 @@ class Graph(object):
                 curr = predecessor[curr]
             else:
                 return [distance[target], path[::-1]]
-
-if __name__ == '__main__':
-    graphy_mcgraphface = Graph()
-    graphy_mcgraphface.add_edge('A', 'C', 1)
-    # graphy_mcgraphface.add_edge('A', 'C', 1)
-    # graphy_mcgraphface.add_edge('A', 'B', 4)
-    # graphy_mcgraphface.add_edge('B', 'A', 5)
-    # graphy_mcgraphface.add_edge('A', 'D', 6)
-    graphy_mcgraphface.add_edge('C', 'E', 1)
-    # graphy_mcgraphface.add_edge('E', 'C', 1)
-    # graphy_mcgraphface.add_edge('E', 'B', 1)
-    # graphy_mcgraphface.add_edge('B', 'D', 1)
-    # graphy_mcgraphface.add_edge('B', 'F', 1)
-    # graphy_mcgraphface.add_edge('F', 'D', 10)
-    # print(graphy_mcgraphface.del_node('F'))
-    print(graphy_mcgraphface.adjacent('A', 'C'))
-    print(graphy_mcgraphface.adjacent('A', 'E'))
-
-    # import datetime
-    # pointA = datetime.datetime.now()
-    # print(graphy_mcgraphface.bellman_ford('A', 'F'))
-    # pointB = datetime.datetime.now()
-    # print('Bellman ford took: ', pointB - pointA)
-    # pointA = datetime.datetime.now()
-    # print(graphy_mcgraphface.dijkstra('A', 'F'))
-    # pointB = datetime.datetime.now()
-    # print('Dijkstra took: ', pointB - pointA)
-
-    test_graph = Graph()
-    test_graph.add_edge(0, 1, 1)
-    test_graph.add_edge(0, 2, 4)
-    test_graph.add_edge(1, 3, 5)
-    test_graph.add_edge(1, 4, 6)
-    test_graph.add_edge(2, 5, 1)
-    test_graph.add_edge(2, 6, 1)
-    test_graph.add_edge(3, 7, 1)
-    test_graph.add_edge(3, 8, 1)
-    test_graph.add_edge(4, 9, 10)
-    test_graph.add_edge(4, 10, 10)
-    test_graph.add_edge(5, 11, 10)
-    test_graph.add_edge(5, 12, 10)
-    test_graph.add_edge(6, 13, 10)
-    test_graph.add_edge(6, 14, 10)
-    print(test_graph.dijkstra(0))
-    # graphy_mcgraphface = Graph()
-    # graphy_mcgraphface.add_edge('A', 'C', 1)
-    # graphy_mcgraphface.add_edge('A', 'B', -4)
-    # graphy_mcgraphface.add_edge('B', 'A', -5)
-    # graphy_mcgraphface.add_edge('A', 'D', 6)
-    # graphy_mcgraphface.add_edge('C', 'E', 1)
-    # graphy_mcgraphface.add_edge('E', 'C', 1)
-    # graphy_mcgraphface.add_edge('E', 'B', 1)
-    # # graphy_mcgraphface.add_edge('B', 'D', 1)
-    # graphy_mcgraphface.add_edge('B', 'F', 1)
-    # graphy_mcgraphface.add_edge('F', 'D', 10)
-    # # print(graphy_mcgraphface.del_node('F'))
-    # print(graphy_mcgraphface.nodes())
-    # print(graphy_mcgraphface.depth("E"))
-
-
-
-    # print(graphy_mcgraphface.bellman_ford(graphy_mcgraphface.breadth('A'), graphy_mcgraphface.edges(), 'A'))
-
-
-    # print(graphy_mcgraphface.path('A'))
-    # print(graphy_mcgraphface.graph_dict)
-    # print(graphy_mcgraphface.edges())
-    # print('---------------------')
-    # print('depth: ', graphy_mcgraphface.depth(1))
-    # print('breadth: ', graphy_mcgraphface.breadth(1))
-    # graphy_mcgraphface = Graph()
-    # graphy_mcgraphface.add_edge(1, 2)
-    # graphy_mcgraphface.add_edge(1, 3)
-    # graphy_mcgraphface.add_edge(2, 4)
-    # graphy_mcgraphface.add_edge(2, 5)
-    # graphy_mcgraphface.add_edge(3, 6)
-    # graphy_mcgraphface.neighbors(2)
-    # graphy_mcgraphface.add_edge(3, 7)
-    # graphy_mcgraphface.add_edge(4, 8)
-    # graphy_mcgraphface.add_edge(4, 9)
-    # graphy_mcgraphface.add_edge(5, 10)
-    # graphy_mcgraphface.add_edge(5, 11)
-    # graphy_mcgraphface.add_edge(6, 12)
-    # graphy_mcgraphface.add_edge(6, 13)
-    # graphy_mcgraphface.add_edge(7, 14)
-    # graphy_mcgraphface.add_edge(7, 15)
-    # print(graphy_mcgraphface.graph_dict)
-    # print('---------------------')
-    # print('depth: ', graphy_mcgraphface.depth(1))
-    # print('breadth: ', graphy_mcgraphface.breadth(1))

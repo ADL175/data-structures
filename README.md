@@ -18,3 +18,12 @@ branch: queue
 
 Deque in deque.py, test in test_deque.py
 branch: deque
+
+Binary Heap in binheap.py test in test_heap.py
+branch: binary_heap
+
+Priority queue in priority_heap.py test in test_priorityq.py
+Branch: priorityq
+
+Graph in graph.py, test in test_graph.py
+branches: graphs, weights, traversals, paths, bellman
