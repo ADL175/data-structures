@@ -1,5 +1,6 @@
 """Creates a Graph data structure, featuring graph traversal and two shortest path algorithms."""
-
+import timeit
+import random
 
 class Graph(object):
     """Define the Graph class structure."""
@@ -185,3 +186,22 @@ class Graph(object):
                 curr = predecessor[curr]
             else:
                 return [distance[target], path[::-1]]
+
+
+def wrapper(func, *args, **kwargs):  #pragma no cover
+    """Create a value for a function with a specific arguement called to it."""
+    def wrapped():
+        return func(*args, **kwargs)
+    return wrapped
+    #code found at http://pythoncentral.io/time-a-python-function/
+
+if __name__ == '__main__':
+    #This block included for the requirement portion of the traversals assignment.
+    time_test_graph = Graph()
+    for i in range(100):
+        time_test_graph.add_edge(i, i*2 + 1)
+        time_test_graph.add_edge(i, i*2 + 2)
+    wrapped1 = wrapper(time_test_graph.breadth_first_traversal, 0)
+    wrapped2 = wrapper(time_test_graph.depth_first_traversal, 0)
+    print("Breadth first: ", timeit.timeit(wrapped1, number=10000))
+    print("Depth first: ", timeit.timeit(wrapped2, number=10000))
