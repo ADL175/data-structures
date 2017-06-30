@@ -1,11 +1,11 @@
-"""Graphy mcgraphface"""
+"""Creates a Graph data structure"""
+
 
 class Graph(object):
     """Define the Link_List class structure"""
     def __init__(self):
         """Make an empty dictionary."""
         self.graph_dict = {}
-
 
     def add_node(self, value):
         """Check if node of given value exists in dictionary.
@@ -14,7 +14,6 @@ class Graph(object):
             self.graph_dict[value]
         except KeyError:
             self.graph_dict[value] = []
-
 
     def add_edge(self, val1, val2, weight=0):
         """Ensure that nodes of val1 and val2 exist (creating them if they don't.
@@ -208,6 +207,41 @@ if __name__ == '__main__':
     # pointB = datetime.datetime.now()
     # print('Dijkstra took: ', pointB - pointA)
 
+    test_graph = Graph()
+    test_graph.add_edge(0, 1, 1)
+    test_graph.add_edge(0, 2, 4)
+    test_graph.add_edge(1, 3, 5)
+    test_graph.add_edge(1, 4, 6)
+    test_graph.add_edge(2, 5, 1)
+    test_graph.add_edge(2, 6, 1)
+    test_graph.add_edge(3, 7, 1)
+    test_graph.add_edge(3, 8, 1)
+    test_graph.add_edge(4, 9, 10)
+    test_graph.add_edge(4, 10, 10)
+    test_graph.add_edge(5, 11, 10)
+    test_graph.add_edge(5, 12, 10)
+    test_graph.add_edge(6, 13, 10)
+    test_graph.add_edge(6, 14, 10)
+    print(test_graph.dijkstra(0))
+    # graphy_mcgraphface = Graph()
+    # graphy_mcgraphface.add_edge('A', 'C', 1)
+    # graphy_mcgraphface.add_edge('A', 'B', -4)
+    # graphy_mcgraphface.add_edge('B', 'A', -5)
+    # graphy_mcgraphface.add_edge('A', 'D', 6)
+    # graphy_mcgraphface.add_edge('C', 'E', 1)
+    # graphy_mcgraphface.add_edge('E', 'C', 1)
+    # graphy_mcgraphface.add_edge('E', 'B', 1)
+    # # graphy_mcgraphface.add_edge('B', 'D', 1)
+    # graphy_mcgraphface.add_edge('B', 'F', 1)
+    # graphy_mcgraphface.add_edge('F', 'D', 10)
+    # # print(graphy_mcgraphface.del_node('F'))
+    # print(graphy_mcgraphface.nodes())
+    # print(graphy_mcgraphface.depth("E"))
+
+
+
+    # print(graphy_mcgraphface.bellman_ford(graphy_mcgraphface.breadth('A'), graphy_mcgraphface.edges(), 'A'))
+
 
     # print(graphy_mcgraphface.path('A'))
     # print(graphy_mcgraphface.graph_dict)
@@ -221,6 +255,7 @@ if __name__ == '__main__':
     # graphy_mcgraphface.add_edge(2, 4)
     # graphy_mcgraphface.add_edge(2, 5)
     # graphy_mcgraphface.add_edge(3, 6)
+    # graphy_mcgraphface.neighbors(2)
     # graphy_mcgraphface.add_edge(3, 7)
     # graphy_mcgraphface.add_edge(4, 8)
     # graphy_mcgraphface.add_edge(4, 9)
