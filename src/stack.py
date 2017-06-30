@@ -38,5 +38,3 @@ class Stack(object):
     def __len__(self):
         """Overload the str function of len to print the length of Stack."""
         return self.length
-
-

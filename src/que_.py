@@ -1,4 +1,4 @@
-import sys
+"""Creates a Queue Data Structure."""
 
 
 class Node(object):
@@ -10,14 +10,15 @@ class Node(object):
 
 
 class Queue(object):
-    """Creates a Queue from value or list."""
+    """Creates a Queue, may take in tuple or list to populate."""
     def __init__(self, optional_values=[]):
         self.head = None
         self.tail = None
         self.length = 0
         self.is_empty = True
-        for x in optional_values:
-            self.enqueue(x)
+        if isinstance(optional_values, (tuple, list)):
+            for x in optional_values:
+                self.enqueue(x)
 
     def enqueue(self, value):
         """Adds node to end of queue."""
@@ -31,9 +32,9 @@ class Queue(object):
         self.length += 1
 
     def dequeue(self):
-        """Removes node from head of queue."""
+        """Removes node from head of queue and returns value."""
         if self.head is None:
-            return "Queue is empty."
+            raise IndexError("Queue is empty")
         head = self.head
         if self.head == self.tail:
             self.tail = None
@@ -44,16 +45,16 @@ class Queue(object):
         self.length -= 1
         if self.length == 0:
             self.is_empty = True
-        return head
+        return head.value
 
     def peek(self):
-        """Return value of head."""
+        """Return value of head, returns none if empty."""
         if self.head is None:
-            return "Queue is empty."
+            return None
         return self.head.value
 
     def size(self):
-        """Returns length of queue."""
+        """Returns size/length of queue."""
         return self.length
 
     def __len__(self):
