@@ -1,17 +1,19 @@
-"""Implement the Node class and Linked_List class"""
-import sys
+"""Implement the Node class and Double Linked_List class."""
 
 
 class Node(object):
     """Creates sub class of Node."""
+
     def __init__(self, value, next_up=None, behind=None):
+        """Set up Node."""
         self.value = value
         self.next = next_up
         self.behind = behind
 
 
-class Linked_List(object):
-    """Creates a doubly linked list."""
+class Double_Linked_List(object):
+    """Create a doubly linked list."""
+
     def __init__(self, optional_values=[]):
         """Initialize the class instance."""
         self.head = None
@@ -21,7 +23,7 @@ class Linked_List(object):
             self.push(x)
 
     def push(self, value):
-        """Adds new Head to head of DLL."""
+        """Add new Head to head of DLL."""
         self.head = Node(value, self.head)
         if self.length == 0:
             self.tail = self.head
@@ -30,7 +32,7 @@ class Linked_List(object):
             self.head.next.behind = self.head
 
     def append(self, value):
-        """Adds new node to tail of DLL."""
+        """Add new node to tail of DLL."""
         self.tail = Node(value, None, self.tail)
         if self.length == 0:
             self.head = self.tail
@@ -40,58 +42,67 @@ class Linked_List(object):
 
     def pop(self):
         """Pop the specific node, assign it's next to head, and return popped node."""
+        if self.length is 0:
+            raise IndexError('List is empty.')
         popped = self.head
         self.head = self.head.next
         self.length -= 1
         if self.head:
             self.head.behind = None
-        return popped
+        return popped.value
 
     def shift(self):
-        """Removes and returns tailnode."""
+        """Remove and returns tailnode."""
+        if self.length is 0:
+            raise IndexError('List is empty.')
         shifted = self.tail
         self.tail = self.tail.behind
         self.length -= 1
         if self.tail:
             self.tail.next = None
-        return shifted
+        return shifted.value
 
     def size(self):
-        """Returns length of DLL."""
+        """Return length of DLL."""
         return self.length
 
-    def search(self, val):
-        """Search for val, return node that has it."""
-        temp = self.head
-        while temp.value is not val:
-            temp = temp.next
-            if temp is None:
-                return "haha, nothing here"
-        return temp
-
     def remove(self, val):
-        """Removes a specific node from DLL."""
+        """Remove a specific node from DLL."""
+        if self.length is 0:
+            raise IndexError('List is empty.')
         if self.head.value is val:
             self.head = self.head.next
             self.head.behind = None
             self.length -= 1
         current_node = self.head
         while current_node:
-            if current_node.next.value is val:
-                if current_node.next is self.tail:
-                    self.tail = self.tail.behind
-                    self.tail.next = None
-                    self.length -= 1
-                    return
-                else:
-                    self.length -= 1
-                    current_node.next = current_node.next.next
-                    current_node.next.behind = current_node
-                    return
-            if current_node is None:
-                return "haha, nothing to delete"
+            try:
+                if current_node.next.value is val:
+                    if current_node.next is self.tail:
+                        self.tail = self.tail.behind
+                        self.tail.next = None
+                        self.length -= 1
+                        return
+                    else:
+                        self.length -= 1
+                        current_node.next = current_node.next.next
+                        current_node.next.behind = current_node
+                        return
+            except AttributeError:
+                raise IndexError("Node not found")
             current_node = current_node.next
 
     def __len__(self):
-        """Returns the length of the list."""
+        """Return the length of the list."""
         return self.length
+
+
+if __name__ == '__main__':
+    LL = Double_Linked_List()
+    for i in range(0):
+        LL.append(i)
+    print(LL.remove(2))
+    # print(LL.remove(4))
+    # print(LL.remove(14))
+    for i in range(9):
+        print(LL.pop())
