@@ -118,7 +118,7 @@ class Graph(object):
                         next_up.enqueue(i)
                 if next_up.size() == 0:
                     break
-                val = next_up.dequeue().value[0]
+                val = next_up.dequeue()[0]
             return seen
         except KeyError:
 
@@ -132,7 +132,7 @@ class Graph(object):
         optimal path.
         """
         from priorityq import Priority_Q
-        the_list = self.breadth_first_traversal(val1)
+        the_list = self.nodes()
         the_queue = Priority_Q()
         to_return = {}
         for i in the_list:
@@ -162,7 +162,7 @@ class Graph(object):
         Returns the distance of the node from the original, as well as the most
         optimal path.
         """
-        vertices = self.breadth_first_traversal(vertex_source)
+        vertices = self.nodes()
         list_edges = self.edges()
         distance = {}
         predecessor = {}
