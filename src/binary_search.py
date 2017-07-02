@@ -3,10 +3,18 @@
 
 class Node(object):
 
+<<<<<<< HEAD
+    def __init__(self, value, left=None, right=None, parent=None):
+        self.value = value
+        self.left = left
+        self.right = right
+        self.parent = parent
+=======
     def __init__(self, value, left=None, right=None):
         self.value = value
         self.left = left
         self.right = right
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
 
 
 class BinarySearchTree(object):
@@ -40,6 +48,10 @@ class BinarySearchTree(object):
                     else:
                         curr.right = Node(value)  # set empty right child of current node to be new node
                         self._size += 1
+<<<<<<< HEAD
+                        Node.parent = curr
+=======
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
                         return
                 elif value < curr.value:  # if new value is less than root value
                     if curr.left:
@@ -48,6 +60,10 @@ class BinarySearchTree(object):
                     else:
                         curr.left = Node(value)
                         self._size += 1
+<<<<<<< HEAD
+                        Node.parent = curr
+=======
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
                         return
                 else: # if the new value is equal to root value
                     return
@@ -167,6 +183,27 @@ class BinarySearchTree(object):
                 yield each_value
         yield node.value
 
+<<<<<<< HEAD
+    # def delete(self, value):
+    #     start = self.search(value)
+    #
+    #     if not start.left and not start.right:
+    #         is_root = True if start is self._root else False
+    #         if is_root:
+    #             size -= 1
+    #             self._root = None
+    #         else:
+    #             if start.parent.val > start.val:
+    #                 start.parent.left = None
+    #             else:
+    #                 start.parent.right = None
+    #             size -= 1
+    #     elif start.left and start.right:
+    #
+    #     elif start.left or start.right:
+
+=======
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
 poo = BinarySearchTree()
 poo.insert(34)
 poo.insert(44)

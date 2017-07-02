@@ -1,4 +1,3 @@
-
 """A basic linked list data structure."""
 
 
