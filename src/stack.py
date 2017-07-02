@@ -1,8 +1,10 @@
+"""Sourced from Sean Beseler's code during code review."""
+
 from linked_list import Linked_List
 
 
 class Stack(object):
-    """From code review of Sean B's code"""
+    """Ojbect inheretence from Linked list to create Stack Data structure."""
     def __init__(self, data=[]):
         self._new_linked_list = Linked_List(data)
 
