@@ -11,10 +11,10 @@ class Node(object):  #pragma no cover
         self.next = next_up
 
 
-class Linked_List(object):
+class LinkedList(object):
     """Contain methods for working with nodes pointing to each other."""
 
-    def __init__(self, optional_values=[]):  #pragma no cover
+    def __init__(self, optional_values=None):  #pragma no cover
         """List set up."""
         self.head = None
         self.length = 0
@@ -26,7 +26,7 @@ class Linked_List(object):
         """Return Length of list."""
         return self.size()
 
-    def __print__(self):  #pragma no cover
+    def __str__(self):  #pragma no cover
         """Print list."""
         return self.display()
 
@@ -59,7 +59,6 @@ class Linked_List(object):
             if temp is None:
                 return None
         return temp
-
 
     def remove(self, node_to_be_removed):
         """Remove given node from list."""

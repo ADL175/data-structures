@@ -50,7 +50,7 @@ PARAMS_TABLE_DISPLAY = [
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_list(data, result_one, result_two):
     """Test to ensure iterable insertion functionality works properly."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.head.value == result_one
     assert test_list.head.next.next.value == result_two
 
@@ -58,7 +58,7 @@ def test_list(data, result_one, result_two):
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_push(data, result_one, result_two):
     """Test to ensure push function works properly."""
-    test_list = linked_list.Linked_List()
+    test_list = linked_list.LinkedList()
     for i in data:
         test_list.push(i)
     assert test_list.head.value == result_one
@@ -68,21 +68,22 @@ def test_push(data, result_one, result_two):
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
     """Test to ensure pop function works properly."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.pop() == result_one
     assert test_list.pop() == result_two
 
 
 def test_pop_empty():
     """Test to ensure pop function returns an index error when the list is empty."""
-    test_list = linked_list.Linked_List()
+    test_list = linked_list.LinkedList()
     with pytest.raises(IndexError):
         test_list.pop()
+
 
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
     """Test to ensure size function works properly."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.size() == result
     assert len(test_list) == result
     test_list.push("test_push")
@@ -92,24 +93,25 @@ def test_size(data, result):
     assert test_list.size() == result
     assert len(test_list) == result
 
+
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_THERE)
 def test_search_where_it_is_there(data, search_me, result):
     """Test to ensure search function works properly when requested node is in list."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.search(search_me).value == result
 
 
 @pytest.mark.parametrize("data, search_me, result", PARAMS_TABLE_SEARCH_NOT_THERE)
 def test_search_where_it_is_not_there(data, search_me, result):
     """Test to ensure search function works properly when requested node is not in list."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.search(search_me) == result
 
 
 @pytest.mark.parametrize("a,b,c,d,result_head, result_next", PARAMS_TABLE_REMOVE)
 def test_remove(a, b, c, d, result_head, result_next):
     """Test to ensure remove function works properly when requested node is in list."""
-    test_list = linked_list.Linked_List()
+    test_list = linked_list.LinkedList()
     test_list.push(a)
     test_list.push(b)
     test_list.push(c)
@@ -122,7 +124,7 @@ def test_remove(a, b, c, d, result_head, result_next):
 
 def test_remove_not_there():
     """Test to ensure remove function works properly when requested node is not in list."""
-    test_list = linked_list.Linked_List()
+    test_list = linked_list.LinkedList()
     test_list.push('removed_node')
     removed_node = test_list.head
     test_list.pop()
@@ -132,7 +134,7 @@ def test_remove_not_there():
 
 def test_remove_wrong_type():
     """Test to ensure remove function works properly when requested node is not a node."""
-    test_list = linked_list.Linked_List()
+    test_list = linked_list.LinkedList()
     with pytest.raises(TypeError):
         test_list.remove("removed_node")
 
@@ -140,5 +142,5 @@ def test_remove_wrong_type():
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_DISPLAY)
 def test_display(data, result):
     """Test to ensure display function works properly."""
-    test_list = linked_list.Linked_List(data)
+    test_list = linked_list.LinkedList(data)
     assert test_list.display() == result
