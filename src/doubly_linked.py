@@ -95,14 +95,3 @@ class Double_Linked_List(object):
     def __len__(self):
         """Return the length of the list."""
         return self.length
-
-
-if __name__ == '__main__':
-    LL = Double_Linked_List()
-    for i in range(0):
-        LL.append(i)
-    print(LL.remove(2))
-    # print(LL.remove(4))
-    # print(LL.remove(14))
-    for i in range(9):
-        print(LL.pop())
