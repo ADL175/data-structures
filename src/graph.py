@@ -161,7 +161,7 @@ class Graph(object):
         Returns the distance of the node from the original, as well as the most
         optimal path.
         """
-        vertices = self.breadth_first_traversal(vertex_source)
+        vertices = self.nodes()
         list_edges = self.edges()
         distance = {}
         predecessor = {}
