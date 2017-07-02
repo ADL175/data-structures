@@ -99,7 +99,7 @@ class Graph(object):
                         next_up.push(i)
                 if len(next_up) == 0:
                     break
-                val = next_up.pop().value[0]
+                val = next_up.pop()[0]
             return seen
         except KeyError:
 

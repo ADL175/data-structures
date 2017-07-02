@@ -30,7 +30,6 @@ class LinkedList(object):
         """Print list."""
         return self.display()
 
-
     def push(self, value):
         """Add node with value to head of list."""
         self.head = Node(value, self.head)
