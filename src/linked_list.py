@@ -1,76 +1,85 @@
+<<<<<<< HEAD
 """Link list implementation."""
 
 
 import sys
+=======
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
+
+"""A basic linked list data structure."""
 
 
-class Node(object):
-    """Define node object."""
+class Node(object):  #pragma no cover
+    """A node for the list. Has a value, and points to another node."""
 
     def __init__(self, value, next_up):
-        """Instantiate an object with a given value."""
+        """Node set up."""
         self.value = value
         self.next = next_up
 
 
+<<<<<<< HEAD
 class Linked_List(object):
     """Define the Link_List class structure"""
     def __init__(self, optional_values=[]):
         """Initialize a List with an optional list parameter"""
+=======
+class LinkedList(object):
+    """Contain methods for working with nodes pointing to each other."""
+
+    def __init__(self, optional_values=None):  #pragma no cover
+        """List set up."""
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
         self.head = None
         self.length = 0
-        for x in optional_values:
-            self.push(x)
+        if isinstance(optional_values, (tuple, list)):
+            for x in optional_values:
+                self.push(x)
 
     def __len__(self):
-        """Return the size of specified node."""
+        """Return Length of list."""
         return self.size()
 
+<<<<<<< HEAD
     def __print__(self):
         """Return the print() functions return value."""
+=======
+    def __str__(self):  #pragma no cover
+        """Print list."""
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
         return self.display()
 
     def push(self, value):
-        """Push a node onto the head of the list."""
+        """Add node with value to head of list."""
         self.head = Node(value, self.head)
         self.length += 1
 
     def pop(self):
-        """Pop a specific node."""
+        """Remove node from head of list."""
+        if self.length is 0:
+            raise IndexError('List is empty.')
         popped = self.head
         self.head = self.head.next
         self.length -= 1
-        return popped
+        return popped.value
 
     def size(self):
-        """Returns the lenght attribute of instanced object."""
+        """Return Length of list."""
         return self.length
 
     def search(self, val):
-        """See if val exist in the list."""
+        """Return node with given value, else return none."""
+        if self.length is 0:
+            return None
         temp = self.head
         while temp.value is not val:
             temp = temp.next
             if temp is None:
-                return "haha, nothing here"
+                return None
         return temp
 
-    def remove_that_nick_does_not_want(self, val):
-        """Remove node with specified value."""
-        if self.head.value is val:
-            self.head = self.head.next
-            pass
-        current_node = self.head
-        while current_node:
-            if current_node.next.value is val:
-                self.length -= 1
-                current_node.next = current_node.next.next
-                return
-            if current_node is None:
-                return "haha, nothing to delete"
-            current_node = current_node.next
-
     def remove(self, node_to_be_removed):
+<<<<<<< HEAD
         """Pass a node to and have it removed by reassigning the next link."""
         if self.head is node_to_be_removed:
             self.head = self.head.next
@@ -92,14 +101,33 @@ class Linked_List(object):
             print('({})-->'.format(current_node.value)),
             current_node = current_node.next
         print('({})'.format(current_node.value))
+=======
+        """Remove given node from list."""
+        if isinstance(node_to_be_removed, Node):
+            if self.head is node_to_be_removed:
+                self.head = self.head.next
+            else:
+                current_node = self.head
+                while current_node:
+                    if current_node.next is node_to_be_removed:
+                        self.length -= 1
+                        current_node.next = current_node.next.next
+                        break
+                    current_node = current_node.next
+                if current_node is None:
+                    raise IndexError("Node not found.")
+        else:
+            raise TypeError("Not a Node.")
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
 
     def display(self):
-        """Displays the list in a tuple format"""
+        """Return tuple like string of list."""
         current_node = self.head
         the_list = []
         while current_node:
             the_list.append(current_node.value)
             current_node = current_node.next
+<<<<<<< HEAD
         sys.stdout.write('('),
         for i in range(len(the_list)-1):
             sys.stdout.write('{}, '.format(the_list[i]))
@@ -139,3 +167,12 @@ new_list.pop()
 print(new_list)
 print(new_list.cyclical())
 print(new_list)
+=======
+        to_return = '('
+        for i in range(len(the_list)):
+            to_return += '{}, '.format(the_list[i])
+        if len(to_return) > 1:
+            to_return = to_return[:-2]
+        to_return += ')'
+        return to_return
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63

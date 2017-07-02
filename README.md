@@ -1,7 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # data-structures
 
 <h1>Data Structures</h2>
+=======
+# data-structures
+
+<h1>Data Structures; Python 401</h2>
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
 
 By Erik Enderlein and David Lim
 
@@ -19,6 +25,7 @@ branch: queue
 
 Deque in deque.py, test in test_deque.py
 branch: deque
+<<<<<<< HEAD
 =======
 # Linked List and Stack
 
@@ -60,3 +67,14 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 Stack Overflow for algorithmic clues.
 Wiki.
 >>>>>>> 9449a2645df48acf3a61c72b3d1aa9f3cc52c34e
+=======
+
+Binary Heap in binheap.py test in test_heap.py
+branch: binary_heap
+
+Priority queue in priority_heap.py test in test_priorityq.py
+Branch: priorityq
+
+Graph in graph.py, test in test_graph.py
+branches: graphs, weights, traversals, paths, bellman
+>>>>>>> 7ed7aaa49c41d3b2e7bbe7c97fa97d19ce957e63
