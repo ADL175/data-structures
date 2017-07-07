@@ -48,7 +48,7 @@ PARAMS_TABLE_REMOVE_NOT_THERE = [
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_list(data, result_one, result_two):
     """Ensure proper assignment."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     assert test_list.head.value == result_one
     assert test_list.head.next.next.value == result_two
 
@@ -56,7 +56,7 @@ def test_list(data, result_one, result_two):
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_push(data, result_one, result_two):
     """Test the push method."""
-    test_list = doubly_linked.Double_Linked_List()
+    test_list = doubly_linked.DoubleLinkedList()
     for i in data:
         test_list.push(i)
     assert test_list.head.value == result_one
@@ -66,7 +66,7 @@ def test_push(data, result_one, result_two):
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_LIST)
 def test_append(data, result_one, result_two):
     """Test the append method."""
-    test_list = doubly_linked.Double_Linked_List()
+    test_list = doubly_linked.DoubleLinkedList()
     for i in data:
         test_list.append(i)
     assert test_list.tail.value == result_one
@@ -76,14 +76,14 @@ def test_append(data, result_one, result_two):
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_POP)
 def test_pop(data, result_one, result_two):
     """Test the pop method."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     assert test_list.pop() == result_one
     assert test_list.pop() == result_two
 
 
 def test_pop_empty_list():
     """Test if pop raises an error when list is empty."""
-    test_list = doubly_linked.Double_Linked_List()
+    test_list = doubly_linked.DoubleLinkedList()
     with pytest.raises(IndexError):
         test_list.pop()
 
@@ -91,14 +91,14 @@ def test_pop_empty_list():
 @pytest.mark.parametrize("data, result_one, result_two", PARAMS_TABLE_SHIFT)
 def test_shift(data, result_one, result_two):
     """Test the shift method."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     assert test_list.shift() == result_one
     assert test_list.shift() == result_two
 
 
 def test_shift_empty_list():
     """Test if shift raises an error when list is empty."""
-    test_list = doubly_linked.Double_Linked_List()
+    test_list = doubly_linked.DoubleLinkedList()
     with pytest.raises(IndexError):
         test_list.shift()
 
@@ -106,7 +106,7 @@ def test_shift_empty_list():
 @pytest.mark.parametrize("data, result", PARAMS_TABLE_SIZE)
 def test_size(data, result):
     """Test if list size is properly incremented."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     assert test_list.size() == result
     test_list.push("test_push")
     assert test_list.size() == result + 1
@@ -117,7 +117,7 @@ def test_size(data, result):
 @pytest.mark.parametrize("data, delete_me, result", PARAMS_TABLE_REMOVE)
 def test_remove(data, delete_me, result):
     """Test if list is appropriately changed when node is removed."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     test_list.remove(delete_me)
     assert test_list.head.next.next.next.value == result
 
@@ -125,13 +125,37 @@ def test_remove(data, delete_me, result):
 @pytest.mark.parametrize("data, delete_me", PARAMS_TABLE_REMOVE_NOT_THERE)
 def test_remove_where_node_is_not_there(data, delete_me):
     """Test if remove raises an error if node is not found."""
-    test_list = doubly_linked.Double_Linked_List(data)
+    test_list = doubly_linked.DoubleLinkedList(data)
     with pytest.raises(IndexError):
         test_list.remove(delete_me)
 
 
 def test_remove_empty_list():
     """Test if remove raises an error when list is empty."""
-    test_list = doubly_linked.Double_Linked_List()
+    test_list = doubly_linked.DoubleLinkedList()
     with pytest.raises(IndexError):
         test_list.remove(5)
+
+
+def test_remove_last_node_removes_head_and_tail():
+    """Test to ensure that removing the final node from a list leaves no head or tail."""
+    test_list = doubly_linked.DoubleLinkedList([1])
+    test_list.remove(1)
+    assert test_list.head is None
+    assert test_list.tail is None
+
+
+def test_pop_last_node_removes_head_and_tail():
+    """Test to ensure that popping the final node from a list leaves no head or tail."""
+    test_list = doubly_linked.DoubleLinkedList([1])
+    test_list.pop()
+    assert test_list.head is None
+    assert test_list.tail is None
+
+
+def test_shift_last_node_removes_head_and_tail():
+    """Test to ensure that shifting the final node from a list leaves no head or tail."""
+    test_list = doubly_linked.DoubleLinkedList([1])
+    test_list.shift()
+    assert test_list.head is None
+    assert test_list.tail is None
