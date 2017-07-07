@@ -11,7 +11,7 @@ class Node(object):
         self.behind = behind
 
 
-class Double_Linked_List(object):
+class DoubleLinkedList(object):
     """Create a doubly linked list."""
 
     def __init__(self, optional_values=[]):
@@ -49,6 +49,8 @@ class Double_Linked_List(object):
         self.length -= 1
         if self.head:
             self.head.behind = None
+        if self.length == 0:
+            self.tail = None
         return popped.value
 
     def shift(self):
@@ -60,6 +62,8 @@ class Double_Linked_List(object):
         self.length -= 1
         if self.tail:
             self.tail.next = None
+        if self.length == 0:
+            self.head = None
         return shifted.value
 
     def size(self):
@@ -70,7 +74,10 @@ class Double_Linked_List(object):
         """Remove a specific node from DLL."""
         if self.length is 0:
             raise IndexError('List is empty.')
-        if self.head.value is val:
+        if self.length is 1 and self.head.value == val:
+            self.head = None
+            self.tail = None
+        elif self.head.value is val:
             self.head = self.head.next
             self.head.behind = None
             self.length -= 1
@@ -95,3 +102,10 @@ class Double_Linked_List(object):
     def __len__(self):
         """Return the length of the list."""
         return self.length
+
+if __name__ == '__main__':
+    test = DoubleLinkedList([1, 2, 3, 4, 5])
+    while test.length > 0:
+        print(test.pop())
+    print(test.head)
+    print(test.tail)
