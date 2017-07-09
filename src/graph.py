@@ -16,12 +16,12 @@ class Graph(object):
         except KeyError:
             self.graph_dict[value] = []
 
-    def add_edge(self, val1, val2, weight=0):
+    def add_edge(self, val1, val2):
         """Ensure that nodes of val1 and val2 exist (creating them if they don't.Then make an edge connecting val1 to val2."""
-        if [val1, val2, weight] not in self.edges():
+        if [val1, val2] not in self.edges():
             self.add_node(val1)
             self.add_node(val2)
-            self.graph_dict[val1].append([val2, weight])
+            self.graph_dict[val1].append(val2)
         else:
             raise KeyError("Edge already exists.")
 
@@ -34,7 +34,7 @@ class Graph(object):
         to_return = []
         for keys, values in self.graph_dict.items():
             for i in values:
-                to_return.append([keys, i[0], i[1]])
+                to_return.append([keys, i])
         return to_return
 
     def del_node(self, val):
@@ -43,7 +43,7 @@ class Graph(object):
             del self.graph_dict[val]
             for keys, values in self.graph_dict.items():
                 for i in values:
-                    if i[0] == val:
+                    if i == val:
                         values.remove(i)
         except KeyError:
 
@@ -53,7 +53,7 @@ class Graph(object):
         """Delete an edge from graph."""
         try:
             for node in self.graph_dict[val1]:
-                if node[0] == val2:
+                if node == val2:
                     self.graph_dict[val1].remove(node)
         except KeyError:
 
@@ -85,123 +85,3 @@ class Graph(object):
         except KeyError:
 
             raise KeyError("Value given not in graph.")
-
-    def depth_first_traversal(self, val):
-        """Return a list of all nodes connected to given start pointbased on a depth first algorithm."""
-        from stack import Stack
-        seen = []
-        next_up = Stack()
-        try:
-            while True:
-                if val not in seen:
-                    seen.append(val)
-                    for i in self.graph_dict[val][::-1]:
-                        next_up.push(i)
-                if len(next_up) == 0:
-                    break
-                val = next_up.pop()[0]
-            return seen
-        except KeyError:
-
-            raise KeyError('Given value does not exist.')
-
-    def breadth_first_traversal(self, val):
-        """Return a list of all nodes connected to given start pointbased on a breadth first algorithm."""
-        from que_ import Queue
-        seen = []
-        next_up = Queue()
-        try:
-            while True:
-                if val not in seen:
-                    seen.append(val)
-                    for i in self.graph_dict[val]:
-                        next_up.enqueue(i)
-                if next_up.size() == 0:
-                    break
-                val = next_up.dequeue()[0]
-            return seen
-        except KeyError:
-
-            raise KeyError('Given value does not exist.')
-
-    def dijkstra(self, val1, val2):
-        """An implementation of Dijkstra's shortest path algorithm.
-
-        Makes use of a priority queue to find the shortest path between two nodes.
-        Returns the distance of the node from the original, as well as the most
-        optimal path.
-        """
-        from priorityq import Priority_Q
-        the_list = self.nodes()
-        the_queue = Priority_Q()
-        to_return = {}
-        for i in the_list:
-            if i == val1:
-                the_queue.insert(i, self.graph_dict[i], 0)
-            else:
-                the_queue.insert(i, self.graph_dict[i])
-        while len(the_queue.heap.heap) > 0:
-            current = the_queue.pop()
-            for neighbor in current['neighbors']:
-                alt = current['dist'] + neighbor[1]
-                the_queue.decrease_priority(neighbor[0], alt, current['value'])
-            to_return[current['value']] = current
-        path = []
-        curr = to_return[val2]
-        while True:
-            path.append(curr['value'])
-            if curr['prev']:
-                curr = to_return[curr['prev']]
-            else:
-                return [to_return[val2]['dist'], path[::-1]]
-
-    def bellman_ford(self, vertex_source, target):
-        """An implementation the Bellman Ford shortest path algorithm.
-
-        Makes use of a priority queue to find the shortest path between two nodes.
-        Returns the distance of the node from the original, as well as the most
-        optimal path.
-        """
-        vertices = self.nodes()
-        list_edges = self.edges()
-        distance = {}
-        predecessor = {}
-        for vertex_v in vertices:
-            distance[vertex_v] = float('inf')
-            predecessor[vertex_v] = None
-        distance[vertex_source] = 0
-        for i in range(len(vertices)):
-            for ji in list_edges:
-                if distance[ji[0]] + ji[2] < distance[ji[1]]:
-                    distance[ji[1]] = distance[ji[0]] + ji[2]
-                    predecessor[ji[1]] = ji[0]
-        for i in list_edges:
-            if distance[i[0]] + i[2] < distance[i[1]]:
-                raise ValueError('Graph contains a negative-weight cycle')
-        path = []
-        curr = target
-        while True:
-            path.append(curr)
-            if predecessor[curr]:
-                curr = predecessor[curr]
-            else:
-                return [distance[target], path[::-1]]
-
-
-def wrapper(func, *args, **kwargs):  #pragma no cover
-    """Create a value for a function with a specific arguement called to it."""
-    def wrapped():
-        return func(*args, **kwargs)
-    return wrapped
-    #code found at http://pythoncentral.io/time-a-python-function/
-
-if __name__ == '__main__':
-    #This block included for the requirement portion of the traversals assignment.
-    time_test_graph = Graph()
-    for i in range(100):
-        time_test_graph.add_edge(i, i*2 + 1)
-        time_test_graph.add_edge(i, i*2 + 2)
-    wrapped1 = wrapper(time_test_graph.breadth_first_traversal, 0)
-    wrapped2 = wrapper(time_test_graph.depth_first_traversal, 0)
-    print("Breadth first: ", timeit.timeit(wrapped1, number=10000))
-    print("Depth first: ", timeit.timeit(wrapped2, number=10000))
