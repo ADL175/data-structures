@@ -12,6 +12,13 @@ branch: stack
 
 Doubly Linked_List in doubly_linked.py, test in test_doubly_linked.py
 branch: dll
+methods: 
+    push(self, value): add a new node as head of DLL.
+    append(self, value): add new node as tail of DLL
+    pop(self): remove the head node, return its value.
+    shift(self): remove the tail node, return its value.
+    size(self): return length of DLL.
+    remove(self, val): remove node in DLL with given value. Raise error if not found.
 
 Queue in que_.py, test in test_que_.py,
 branch: queue

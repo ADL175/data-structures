@@ -41,8 +41,8 @@ class DoubleLinkedList(object):
             self.tail.behind.next = self.tail
 
     def pop(self):
-        """Pop the specific node, assign it's next to head, and return popped node."""
-        if self.length is 0:
+        """Pop the head node, assign it's next to head, and return popped node."""
+        if self.length == 0:
             raise IndexError('List is empty.')
         popped = self.head
         self.head = self.head.next
@@ -55,7 +55,7 @@ class DoubleLinkedList(object):
 
     def shift(self):
         """Remove and returns tailnode."""
-        if self.length is 0:
+        if self.length == 0:
             raise IndexError('List is empty.')
         shifted = self.tail
         self.tail = self.tail.behind
@@ -72,32 +72,34 @@ class DoubleLinkedList(object):
 
     def remove(self, val):
         """Remove a specific node from DLL."""
-        if self.length is 0:
+        if self.length == 0:
             raise IndexError('List is empty.')
         if self.length is 1 and self.head.value == val:
             self.head = None
             self.tail = None
         elif self.head.value is val:
             self.head = self.head.next
-            self.head.behind = None
+            if self.length > 1:
+                self.head.behind = None
             self.length -= 1
-        current_node = self.head
-        while current_node:
-            try:
-                if current_node.next.value is val:
-                    if current_node.next is self.tail:
-                        self.tail = self.tail.behind
-                        self.tail.next = None
-                        self.length -= 1
-                        return
-                    else:
-                        self.length -= 1
-                        current_node.next = current_node.next.next
-                        current_node.next.behind = current_node
-                        return
-            except AttributeError:
-                raise IndexError("Node not found")
-            current_node = current_node.next
+        else:
+            current_node = self.head
+            while current_node:
+                try:
+                    if current_node.next.value == val:
+                        if current_node.next == self.tail:
+                            self.tail = self.tail.behind
+                            self.tail.next = None
+                            self.length -= 1
+                            return
+                        else:
+                            self.length -= 1
+                            current_node.next = current_node.next.next
+                            current_node.next.behind = current_node
+                            return
+                except AttributeError:
+                    raise IndexError("Node not found")
+                current_node = current_node.next
 
     def __len__(self):
         """Return the length of the list."""
